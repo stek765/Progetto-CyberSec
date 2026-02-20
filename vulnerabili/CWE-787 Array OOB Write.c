@@ -1,3 +1,18 @@
+/**
+ * @file CWE-787 Array OOB Write.c
+ * @brief CWE-787: Out-of-bounds Write
+ *
+ * Descrizione:
+ * Scrittura fuori dai limiti di un array (Array Out-of-bounds Write).
+ * L'indice fornito dall'utente non viene verificato prima di scrivere nell'array,
+ * permettendo di sovrascrivere indirizzi di memoria adiacenti (es. indirizzo di ritorno).
+ *
+ * Strumenti consigliati:
+ * - Compilazione: gcc -no-pie -fno-stack-protector -z execstack -o "build/CWE-787 Array OOB Write" "vulnerabili/CWE-787 Array OOB Write.c"
+ * - Analisi dinamica: Valgrind (memcheck), GDB
+ * - Analisi statica: Cppcheck
+ */
+
 // CWE-787 Example 1: Out-of-bounds array write (Ret2Win)
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,3 +1,17 @@
+/**
+ * @file CWE-787 Heap OOB Write.c
+ * @brief CWE-787: Out-of-bounds Write (Heap)
+ *
+ * Descrizione:
+ * Scrittura Out-of-bounds nell'Heap dovuta a un errore di logica nella validazione dell'indice.
+ * Permette di scrivere oltre l'array di puntatori WidgetList, corrompendo la struttura
+ * AdminSession adiacente.
+ *
+ * Strumenti consigliati:
+ * - Compilazione: gcc -no-pie -fno-stack-protector -z execstack -o "build/CWE-787 Heap OOB Write" "vulnerabili/CWE-787 Heap OOB Write.c"
+ * - Analisi: GDB, ltrace (per vedere i malloc)
+ */
+
 // CWE-787 Example 5: Out-of-bounds Write (Heap Corruption / Logic Bypass)
 #include <stdio.h>
 #include <stdlib.h>

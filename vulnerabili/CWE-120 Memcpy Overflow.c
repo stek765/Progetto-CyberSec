@@ -1,3 +1,17 @@
+/**
+ * @file CWE-120 Memcpy Overflow.c
+ * @brief CWE-120: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')
+ *
+ * Descrizione:
+ * Utilizzo di memcpy con una dimensione calcolata in modo errato (type casting error).
+ * La funzione 'returnChunkSize' ritorna -1, che viene interpretato come 255 (unsigned char),
+ * causando un overflow del buffer di destinazione (64 byte).
+ *
+ * Strumenti consigliati:
+ * - Compilazione: gcc -no-pie -fno-stack-protector -z execstack -o "build/CWE-120 Memcpy Overflow" "vulnerabili/CWE-120 Memcpy Overflow.c"
+ * - Analisi dinamica: Valgrind, AddressSanitizer
+ */
+
 // CWE-787 Example 2: memcpy with unchecked size (Ret2Win)
 #include <stdio.h>
 #include <string.h>

@@ -1,6 +1,20 @@
-// CWE-787 Example 4: Encoding expansion causes overflow (Heap FP Overwrite)
+/**
+ * @file CWE-122 Heap Overflow - Patched.c
+ * @brief FIX per CWE-122: Output Buffer Calculation
+ *
+ * Descrizione Fix:
+ * Prima di elaborare la stringa, viene calcolata la dimensione massima
+ * possibile dell'espansione (Worst case: 5x). Se eccede il buffer, l'operazione è bloccata.
+ *
+ * Strumenti consigliati per verifica:
+ * - Compilazione: gcc -no-pie -fno-stack-protector -z execstack -o "build/CWE-122 Heap Overflow - Patched" "non_vulnerabili/CWE-122 Heap Overflow - Patched.c"
+ * - Analisi: Valgrind per verificare assenza di heap overflow
+ */
+
+// SAFE Example 4: Encoding expansion causes overflow Patched
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 #define MAX_SIZE 8
@@ -8,12 +22,12 @@
 typedef struct
 {
     char buf[32];
-    void (*func_ptr)(); // Target for overflow
+    void (*func_ptr)();
 } Data;
 
 void win()
 {
-    printf("Excellent! Exploited vuln4. Spawning shell...\n");
+    printf("This should not be reached!\n");
     char *args[] = {"/bin/sh", NULL};
     execve("/bin/sh", args, NULL);
 }
@@ -26,20 +40,20 @@ void normal_op()
 void copy_input(const char *user_supplied_string, Data *d)
 {
     int i, dst_index;
+    int len = strlen(user_supplied_string);
 
-    // Vulnerability: Check is too loose for the expansion
-    if (strlen(user_supplied_string) > 100)
+    // PATCH: Conservative check. Worst case expansion is 5x.
+    if (len * 5 >= sizeof(d->buf))
     {
-        printf("user string too long, die evil hacker!\n");
-        exit(1);
+        printf("Input too long! Blocked.\n");
+        return;
     }
 
     dst_index = 0;
-    for (i = 0; i < strlen(user_supplied_string); i++)
+    for (i = 0; i < len; i++)
     {
         if ('&' == user_supplied_string[i])
         {
-            // Expands to 5 chars: &amp; // Vulnerability: this can overflow buf
             d->buf[dst_index++] = '&';
             d->buf[dst_index++] = 'a';
             d->buf[dst_index++] = 'm';
@@ -59,6 +73,11 @@ int main(int argc, char *argv[])
     Data *d = (Data *)malloc(sizeof(Data));
     d->func_ptr = normal_op;
 
+    if (argc < 1)
+    { // Removed argv constraint since we read from stdin
+      // return 1;
+    }
+
     printf("Function pointer before: %p\n", d->func_ptr);
     printf("Enter input string: ");
     fflush(stdout);
@@ -72,11 +91,9 @@ int main(int argc, char *argv[])
         input[len - 1] = '\0';
 
     copy_input(input, d);
+
     printf("Function pointer after:  %p\n", d->func_ptr);
-
-    // Execute function pointer
     d->func_ptr();
-
     free(d);
     return 0;
 }
