@@ -3,29 +3,32 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void win() {
+void win()
+{
     printf("Excellent! Exploited vuln1. Spawning shell...\n");
     char *args[] = {"/bin/sh", NULL};
     execve("/bin/sh", args, NULL);
 }
 
-int main(int argc, char *argv[]) {
-    if (argc < 3) {
+int main(int argc, char *argv[])
+{
+    if (argc < 3)
+    {
         printf("Usage: %s <index> <value_as_long>\n", argv[0]);
         return 0;
     }
 
     int idx = atoi(argv[1]);
-    long val = strtol(argv[2], NULL, 0); // Use long for 64-bit address
-    
-    long id_sequence[3]; // Changed to long
+    long val = strtol(argv[2], NULL, 0);
+
+    long id_sequence[3];
     id_sequence[0] = 123;
     id_sequence[1] = 234;
     id_sequence[2] = 345;
 
     printf("Writing %ld to index %d\n", val, idx);
     // VULNERABILITY: No check if idx is within 0-2
-    id_sequence[idx] = val; 
+    id_sequence[idx] = val;
 
     printf("Done\n");
     return 0;
