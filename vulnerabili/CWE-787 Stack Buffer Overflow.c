@@ -1,6 +1,10 @@
 /**
  * @file CWE-787 Stack Buffer Overflow.c
  * @brief CWE-787: Scrittura OOB su Stack via strcpy
+ *
+ * Strumenti consigliati per verifica:
+ * - Compilazione: gcc -no-pie -fno-stack-protector -z execstack -g -o "build/CWE-787 Stack Buffer Overflow" "vulnerabili/CWE-787 Stack Buffer Overflow.c"
+ * - Analisi: GDB, Valgrind (memcheck)
  */
 #include <stdio.h>
 #include <string.h>

@@ -1,6 +1,10 @@
 /**
  * @file CWE-787 Heap Buffer Overflow.c
  * @brief CWE-787: Scrittura OOB su Heap
+ *
+ * Strumenti consigliati per verifica:
+ * - Compilazione: gcc -no-pie -fno-stack-protector -z execstack -g -o "build/CWE-787 Heap Buffer Overflow" "vulnerabili/CWE-787 Heap Buffer Overflow.c"
+ * - Analisi: Valgrind (memcheck), ltrace
  */
 #include <stdio.h>
 #include <stdlib.h>

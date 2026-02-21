@@ -1,6 +1,10 @@
 /**
  * @file CWE-787 Array Index OOB.c
  * @brief CWE-787: Scrittura OOB tramite indice array non controllato
+ *
+ * Strumenti consigliati per verifica:
+ * - Compilazione: gcc -no-pie -fno-stack-protector -z execstack -g -o "build/CWE-787 Array Index OOB" "vulnerabili/CWE-787 Array Index OOB.c"
+ * - Analisi: Valgrind, GDB
  */
 #include <stdio.h>
 

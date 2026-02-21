@@ -1,6 +1,10 @@
 /**
  * @file CWE-787 Heap Buffer Overflow.c
  * @brief FIX: Scrittura OOB su Heap risolta con controllo dimensione
+ *
+ * Strumenti consigliati per verifica:
+ * - Compilazione: gcc -o "build/CWE-787 Heap Buffer Overflow Patched" "non_vulnerabili/CWE-787 Heap Buffer Overflow.c"
+ * - Analisi: Valgrind per verificare assenza perdite di memoria e buffer overflow
  */
 #include <stdio.h>
 #include <stdlib.h>

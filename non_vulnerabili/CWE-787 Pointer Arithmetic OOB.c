@@ -1,6 +1,10 @@
 /**
  * @file CWE-787 Pointer Arithmetic OOB.c
  * @brief FIX: Offset validato prima dell'aritmetica
+ *
+ * Strumenti consigliati per verifica:
+ * - Compilazione: gcc -o "build/CWE-787 Pointer Arithmetic OOB Patched" "non_vulnerabili/CWE-787 Pointer Arithmetic OOB.c"
+ * - Analisi: Verificare output di errore per offset non validi
  */
 #include <stdio.h>
 

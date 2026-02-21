@@ -1,6 +1,10 @@
 /**
  * @file CWE-787 Array Index OOB.c
  * @brief FIX: Indice array validato
+ *
+ * Strumenti consigliati per verifica:
+ * - Compilazione: gcc -o "build/CWE-787 Array Index OOB Patched" "non_vulnerabili/CWE-787 Array Index OOB.c"
+ * - Analisi: Input manuale per verificare che gli indici fuori range siano bloccati
  */
 #include <stdio.h>
 

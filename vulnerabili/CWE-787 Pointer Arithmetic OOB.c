@@ -1,6 +1,10 @@
 /**
  * @file CWE-787 Pointer Arithmetic OOB.c
  * @brief CWE-787: Scrittura OOB tramite aritmetica dei puntatori
+ *
+ * Strumenti consigliati per verifica:
+ * - Compilazione: gcc -no-pie -fno-stack-protector -z execstack -g -o "build/CWE-787 Pointer Arithmetic OOB" "vulnerabili/CWE-787 Pointer Arithmetic OOB.c"
+ * - Analisi: Valgrind, GDB
  */
 #include <stdio.h>
 

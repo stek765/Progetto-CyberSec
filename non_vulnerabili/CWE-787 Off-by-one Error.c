@@ -1,6 +1,10 @@
 /**
  * @file CWE-787 Off-by-one Error.c
  * @brief FIX: Loop condition corretta
+ *
+ * Strumenti consigliati per verifica:
+ * - Compilazione: gcc -o "build/CWE-787 Off-by-one Error Patched" "non_vulnerabili/CWE-787 Off-by-one Error.c"
+ * - Analisi: Valgrind non dovrebbe segnalare errori di OOB Write
  */
 #include <stdio.h>
 

@@ -1,6 +1,10 @@
 /**
  * @file CWE-787 Stack Buffer Overflow.c
  * @brief FIX: Scrittura OOB su Stack risolta con strncpy
+ *
+ * Strumenti consigliati per verifica:
+ * - Compilazione: gcc -o "build/CWE-787 Stack Buffer Overflow Patched" "non_vulnerabili/CWE-787 Stack Buffer Overflow.c"
+ * - Analisi: gcc -fanalyzer per analisi statica
  */
 #include <stdio.h>
 #include <string.h>
